@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.authentication',  # Authentication
-    # 'apps.crm',  # Customers - Suppliers - Employees - Prospects
+    'apps.olist',  # List of Data from Brazilian Ecommerce
     # 'apps.clobizcli',  # CLI Interface APP
-    # 'apps.directory',  # Directory App
 ]
 
 MIDDLEWARE = [
