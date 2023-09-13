@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
-from apps.directory.models import Category
+from .models import *
 
 
 # Create your views here.
@@ -12,7 +12,7 @@ from apps.directory.models import Category
 def index(request):
     # numcategories = Category.objects.all()
 
-    context = {'PageTitle': 'Directory', 'NumRecord': Category.objects.all().count()}
+    context = {'PageTitle': 'OList', 'NumRecord': Order.objects.all().count()}
 
     html_template = loader.get_template('directory/index.html')
     return HttpResponse(html_template.render(context, request))

@@ -1,4 +1,72 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-Main Index
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                Riepilogo Dataset
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Num Ordini: <strong>{{NumOrders}}</strong></p>
+                        <p>Num Righe Ordine: <strong>{{NumOrderItems}}</strong></p>
+                        <p>Num Clienti: <strong>{{NumCustomers}}</strong></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>Distribuzione Stati</h2>
+                        <table class="table table-striped" id="datatable">
+                            <tr>
+                                <th scope="col">Stato</th>
+                                <th scope="col" class="text-end">Num Ordini</th>
+                            </tr>
+                            {% for dati in OrderStatuses %}
+                            <tr>
+                                <td>{{dati.order_status}}</td>
+                                <td class="text-end">{{dati.total}}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div class="col-sm-3 border" id="container_bar"></div>
+                    <div class="col-sm-3 border" id="container_pie"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-xl-6">
+                        {% autoescape off %}
+                        {{ plot_div }}
+                        {% endautoescape %}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script>
+    Highcharts.chart('container_bar', {
+        data: {table: 'datatable'},
+        chart: {type: 'column'},
+        title: {text: 'Order Status Distribution'},
+        subtitle: {text:''},
+        xAxis: {type: 'category',title: {text: 'Stato'}},
+        yAxis: {allowDecimals: false,title: {text: 'Quantità'}}
+    });
+    Highcharts.chart('container_pie', {
+        data: {table: 'datatable'},
+        chart: {type: 'pie'},
+        title: {text: 'Order Status Distribution'},
+        subtitle: {text:''},
+        xAxis: {type: 'category',title: {text: 'Stato'}},
+        yAxis: {allowDecimals: false,title: {text: 'Quantità'}}
+    });
+
+</script>
+
 {% endblock content %}
